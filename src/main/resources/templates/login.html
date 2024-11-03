@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css">
+</head>
+<body>
+<section>
+    <form action="/login" method="post">
+        <h1>Login</h1>
+        <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null}">
+            <p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></p>
+        </div>
+        <div class="inputbox">
+            <input name="felhasznalonev" id="felhasznalonev" type="text" required>
+            <label for="felhasznalonev">Username</label>
+        </div>
+        <div class="inputbox">
+            <input name="jelszo" type="password" id="jelszo" required>
+            <label for="jelszo">Password</label>
+        </div>
+        <button type="submit">Log in</button>
+    </form>
+</section>
+
+<!-- JavaScript közvetlenül a body végén -->
+<script type="application/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.querySelector('section');
+        loginForm.style.opacity = 0;
+
+        setTimeout(() => {
+            loginForm.style.transition = 'opacity 1s ease-in-out';
+            loginForm.style.opacity = 1;
+        }, 500);
+
+        const loginButton = document.querySelector('button');
+        loginButton.addEventListener('click', function (event) {
+            const usernameInput = document.querySelector('input[name="felhasznalonev"]');
+            const passwordInput = document.querySelector('input[name="jelszo"]');
+
+            const isValid = usernameInput.checkValidity() && passwordInput.checkValidity();
+
+            if (!isValid) {
+                event.preventDefault();
+                loginForm.classList.add('shake');
+
+                setTimeout(() => {
+                    loginForm.classList.remove('shake');
+                }, 1000);
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
