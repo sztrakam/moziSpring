@@ -19,13 +19,13 @@ body {
     background-size: cover;
 }
 h2 {
-    text-align: center; /* Cím középre igazítása */
+    text-align: center;
 }
 
 p {
-    margin: 20px auto; /* 20px margó fentről és alulról, auto az oldalakon */
-    max-width: 800px; /* Max szélesség beállítása, ha szükséges */
-    text-align: center; /* Szöveg középre igazítása */
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
 }
 
 section {

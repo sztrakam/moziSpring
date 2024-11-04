@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MyAppEloadasRepository extends JpaRepository<MyAppEloadas, Long> {
-    // Egyedi lekérdezések, ha szükséges
 }

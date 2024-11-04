@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers( "/login", "/h2-console/**","/static/**","/css/**", "/js/**", "/images/**").permitAll();
+                    registry.requestMatchers( "/login", "/h2-console/**","/static/**","/css/**", "/js/**", "/images/**","/register").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .headers(headers -> headers.frameOptions().sameOrigin())

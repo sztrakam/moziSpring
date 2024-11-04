@@ -36,4 +36,18 @@ public class UserService {
 
         userRepository.saveAll(users);
     }
+
+    public MyAppUser saveNewUser(MyAppUser newUser) {
+        if (userRepository.findByUsername(newUser.getUsername()).isPresent()) {
+            logger.info("A felhasználónév már foglalt: " + newUser.getUsername());
+            throw new IllegalArgumentException("A felhasználónév már foglalt!");
+        }
+
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+
+        userRepository.save(newUser);
+        logger.info("Új felhasználó létrehozva: " + newUser.getUsername());
+
+        return newUser;
+    }
 }

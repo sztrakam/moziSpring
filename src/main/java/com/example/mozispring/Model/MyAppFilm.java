@@ -16,7 +16,7 @@ public class MyAppFilm {
     private int ev;
 
     @Column(name = "hossz")
-    private int hossz; // Vagy LocalTime, ha időtípuskú
+    private int hossz;
 
     public Long getId() {
         return id;

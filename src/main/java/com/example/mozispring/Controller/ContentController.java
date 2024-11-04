@@ -1,12 +1,10 @@
 package com.example.mozispring.Controller;
 
-import com.example.mozispring.Model.MyAppEloadas;
-import com.example.mozispring.Model.MyAppFilm;
-import com.example.mozispring.Model.MyAppSzinhaz;
-import com.example.mozispring.Model.MyAppUserService;
+import com.example.mozispring.Model.*;
 import com.example.mozispring.Service.EloadasService;
 import com.example.mozispring.Service.FilmService;
 import com.example.mozispring.Service.SzinhazService;
+import com.example.mozispring.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,13 +24,15 @@ public class ContentController {
     private final EloadasService eloadasService;
     private final FilmService filmService;
     private final SzinhazService szinhazService;
+    private final UserService userService;
 
     @Autowired
-    public ContentController(MyAppUserService myAppUserService, EloadasService eloadasService, FilmService filmService, SzinhazService szinhazService) {
+    public ContentController(MyAppUserService myAppUserService, EloadasService eloadasService, FilmService filmService, SzinhazService szinhazService, UserService userService) {
         this.myAppUserService = myAppUserService;
         this.eloadasService = eloadasService;
         this.filmService = filmService;
         this.szinhazService = szinhazService;
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -55,7 +55,6 @@ public class ContentController {
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         try {
-            // Logika a bejelentkezéshez (myAppUserService hívása)
             return "redirect:/index";
         } catch (UsernameNotFoundException e) {
             model.addAttribute("error", "Hibás felhasználónév vagy jelszó!");
@@ -68,6 +67,31 @@ public class ContentController {
         return "redirect:/login";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestParam("felhasznalonev") String username,
+                               @RequestParam("jelszo") String password,
+                               @RequestParam("szerepkor") String szerepkor,
+                               Model model) {
+        try {
+            MyAppUser newUser = new MyAppUser();
+            newUser.setUsername(username);
+            newUser.setPassword(password);
+            newUser.setRole(szerepkor);
+
+            userService.saveNewUser(newUser);
+            model.addAttribute("successMessage", "Sikeres regisztráció!");
+            return "login";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
+    }
+
     @GetMapping("/data")
     public String showData(Model model) {
         List<MyAppEloadas> eloadasok = eloadasService.getAllEloadasok();
@@ -78,6 +102,6 @@ public class ContentController {
         model.addAttribute("filmek", filmek);
         model.addAttribute("szinhazak", szinhazak);
 
-        return "data"; // data.html
+        return "data";
     }
 }
