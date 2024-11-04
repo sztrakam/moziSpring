@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Üdvözöljük a MoziSpring weboldalán</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <title >MoziSpring</title>
+  <link rel="stylesheet" href="/static/index.css">
 </head>
 <body>
 <header>
@@ -11,13 +11,64 @@
     <ul>
       <li th:if="${not loggedIn}"><a href="/login">Belépés</a></li>
       <li th:if="${loggedIn}"><a href="/logout">Kilépés</a></li>
+      <li th:if="${loggedIn}"><a href="/data">Adatbázis táblázatok lekérdezése</a></li>
       <li th:if="${loggedIn}">Üdvözöljük, <span th:text="${username}"></span></li>
     </ul>
   </nav>
 </header>
 <main>
   <h2>Cégbemutató</h2>
-  <p>Itt írd le a cég történetét és szolgáltatásait.</p>
+  <h3> Mikor lesz elérhető a következő heti műsor?</h3>
+  <p>
+  Egy mozis hét csütörtöktől szerdáig tart. Minden héten hétfőn délután/este kerül fel
+  a következő heti (csütörtöktől szerdáig tartó) műsor.
+  </p>
+
+  <h3>Meddig fogjátok vetíteni a(z) xy filmet?</h3>
+  <p>
+  A moziműsort mindig 1 héttel tudjuk előre. Az, hogy melyik filmet meddig vetítünk,
+  sok tényezőtől függ, ezért biztosat nem tudunk mondani, csak mindig az adott
+  heti műsor szerint.
+  </p>
+  <h3>Fogjátok vetíteni a(z) xy filmet?</h3>
+  <p>
+  Azokat a filmeket, amiket biztosan tudunk, hogy vetíteni fogunk, megtaláljátok
+  a “Filmajánló” menüpontban. Amennyiben egy adott filmet nem találsz meg itt, azt
+  vagy nem fogjuk vetíteni, vagy még képlékeny, hogy műsorra kerül-e.
+  </p>
+
+  <h3>Lesz-e egy adott filmhez filmes menü/vödör?</h3>
+  <p>
+  Ha már mi is biztosak vagyunk benne, hogy lesz hozzá, megtalálod a promóciós
+  menüpont alatt.
+  </p>
+
+  <h3>Tudnátok tartani a foglalásomat az előadás kezdetéig?</h3>
+  <p>
+  A lefoglalt jegyeket a rendszer automatikusan törli a film kezdete előtt 30 perccel,
+  ezért nem tudjuk tovább fenntartani a helyeket.
+  </p>
+
+  <h3>Miért nem kaptam születésnapi/névnapi 1+1 jegyet?</h3>
+  <p>
+  Az ajándék 1+1 jegy a születésnapi illetve névnapi dátum megadásától számított 1 év letele után kerül kiküldése. A gmail-es e-mail fiókoknál
+  elő szokott fordulni, hogy a jegyeket a promóciók közé teszi. Ha ezek teljesültek, és mégsem kaptál jegyet, kérlek vedd fel velünk a kapcsolatot.
+  </p>
+
+  <h3>SZÉP kártyával lehet fizetni?</h3>
+  <p>
+  Sajnos nem fogadhatjuk el a SZÉP kártyát.
+  </p>
+
+  <h3> Nem tudok foglalni az előadásra. Mi a teendő?</h3>
+  <p>
+  2 oka lehet, ha nem tudsz foglalni:
+  1. Ha egy előadáson a foglalások száma meghaladja a 30%-ot, már csak vásárlásra
+  van lehetőség.
+  2. Premier előtti előadásra nincs lehetőség foglalásra, csak vásárlásra.
+  Ha megbizonyosodsz róla, hogy ezek közül egyik sem áll fenn, kérlek hívj minket
+  a 76/900 120-as telefonszámon.
+  </p>
 </main>
 <footer>
   <p>&copy; 2024 MoziSpring</p>

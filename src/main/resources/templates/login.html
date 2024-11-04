@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Bejelentkezés</title>
     <link rel="stylesheet" href="/static/style.css" type="text/css">
 </head>
 <body>
 <section>
     <form action="/login" method="post">
-        <h1>Login</h1>
+        <h1>Bejelentkezés</h1>
         <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null}">
             <p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></p>
         </div>
         <div class="inputbox">
             <input name="felhasznalonev" id="felhasznalonev" type="text" required>
-            <label for="felhasznalonev">Username</label>
+            <label for="felhasznalonev">Felhasználónév</label>
         </div>
         <div class="inputbox">
             <input name="jelszo" type="password" id="jelszo" required>
-            <label for="jelszo">Password</label>
+            <label for="jelszo">Jelszó</label>
         </div>
-        <button type="submit">Log in</button>
+        <button type="submit">Bejelentkezés</button>
     </form>
 </section>
 
