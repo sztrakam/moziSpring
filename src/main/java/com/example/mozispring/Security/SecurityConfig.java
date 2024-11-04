@@ -27,9 +27,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // CSRF védelem kikapcsolása teszteléshez
+                .csrf().disable()
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/static/**", "/login", "/css/**", "/js/**", "/h2-console/**", "/style.css", "/signup", "/index").permitAll();
+                    registry.requestMatchers( "/login", "/h2-console/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .headers(headers -> headers.frameOptions().sameOrigin())

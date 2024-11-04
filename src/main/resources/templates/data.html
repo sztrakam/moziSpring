@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Adatok megjelenítése</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+  <h1>Adatok megjelenítése</h1>
+  <nav>
+    <ul>
+      <li><a href="/">Főoldal</a></li>
+      <li><a href="/logout">Kilépés</a></li>
+    </ul>
+  </nav>
+</header>
+<main>
+  <h2>Eloadások</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Film ID</th>
+      <th>Mozi ID</th>
+      <th>Dátum</th>
+      <th>Nézőszám</th>
+      <th>Bevétel</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="eloadas : ${eloadas}">
+      <td th:text="${eloadas.filmId}"></td>
+      <td th:text="${eloadas.moziId}"></td>
+      <td th:text="${eloadas.datum}"></td>
+      <td th:text="${eloadas.nezoszam}"></td>
+      <td th:text="${eloadas.bevetel}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Filmek</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Cím</th>
+      <th>Év</th>
+      <th>Hossz</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="film : ${filmek}">
+      <td th:text="${film.id}"></td>
+      <td th:text="${film.cim}"></td>
+      <td th:text="${film.ev}"></td>
+      <td th:text="${film.hossz}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Színházak</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Név</th>
+      <th>Város</th>
+      <th>Férőhely</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="szinhaz : ${szinhazak}">
+      <td th:text="${szinhaz.id}"></td>
+      <td th:text="${szinhaz.nev}"></td>
+      <td th:text="${szinhaz.varos}"></td>
+      <td th:text="${szinhaz.ferohely}"></td>
+    </tr>
+    </tbody>
+  </table>
+</main>
+<footer>
+  <p>&copy; 2024 MoziSpring</p>
+</footer>
+</body>
+</html>
