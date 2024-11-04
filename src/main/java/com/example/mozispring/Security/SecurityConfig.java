@@ -13,23 +13,26 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final MyAppUserService appUserService;
 
     public SecurityConfig(@Lazy MyAppUserService appUserService) {
-       this.appUserService = appUserService;
-   }
+        this.appUserService = appUserService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers( "/login", "/h2-console/**","/static/**","/css/**", "/js/**", "/images/**","/register").permitAll();
+                    registry.requestMatchers("/contact","/login", "/h2-console/**", "/static/**", "/css/**", "/js/**", "/images/**", "/register").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .headers(headers -> headers.frameOptions().sameOrigin())

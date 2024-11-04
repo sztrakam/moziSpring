@@ -1,10 +1,7 @@
 package com.example.mozispring.Controller;
 
 import com.example.mozispring.Model.*;
-import com.example.mozispring.Service.EloadasService;
-import com.example.mozispring.Service.FilmService;
-import com.example.mozispring.Service.SzinhazService;
-import com.example.mozispring.Service.UserService;
+import com.example.mozispring.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 
 import java.util.List;
 
@@ -103,5 +101,27 @@ public class ContentController {
         model.addAttribute("szinhazak", szinhazak);
 
         return "data";
+    }
+    @Autowired
+    private ContactService contactService;
+    @GetMapping("/contact")
+    public String showContactPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean loggedIn = auth != null && auth.isAuthenticated();
+        model.addAttribute("loggedIn", loggedIn);
+        return "contact";
+    }
+    @PostMapping("/contact")
+    public String sendMessage(@RequestParam String name,
+                              @RequestParam String email,
+                              @RequestParam String message) {
+        MyAppContact contact = new MyAppContact();
+        contact.setName(name);
+        contact.setEmail(email);
+        contact.setMessage(message);
+
+        contactService.createContact(contact);
+
+        return "contact";
     }
 }
