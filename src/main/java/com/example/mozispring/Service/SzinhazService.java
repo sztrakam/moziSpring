@@ -1,6 +1,8 @@
 package com.example.mozispring.Service;
 
 import com.example.mozispring.Model.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,9 @@ public class SzinhazService {
 
     public List<MyAppSzinhaz> getAllSzinhaz() {
         return szinhazRepository.findAll();
+    }
+    public Page<MyAppSzinhaz> getAllSzinhaz(Pageable pageable) {
+        return szinhazRepository.findAll(pageable);
     }
 
 }

@@ -8,15 +8,25 @@
 <header>
   <h1>Adatok megjelenítése</h1>
   <nav>
-    <ul>
-      <li><a href="/index">Főoldal</a></li>
-      <li><a href="/logout">Kilépés</a></li>
-      <li><a href="/contact">Kapcsolat</a></li>
+    <ul class="menu">
+      <li>&nbsp;&nbsp;<a href="/logout">Kijelentkezés</a>&nbsp;&nbsp;|</li>
+      <li>&nbsp;&nbsp;<a href="/index">Vissza a főoldalra</a>&nbsp;&nbsp;|</li>
+      <li>&nbsp;&nbsp;<a href="/contact">Kapcsolat</a>&nbsp;&nbsp;|</li>
     </ul>
   </nav>
 </header>
 <main>
   <h2>Előadások</h2>
+  <form th:action="@{/data}" method="get">
+    <label for="size">Sorok száma:</label>
+    <select name="size" id="size" onchange="this.form.submit()">
+      <option value="5" th:selected="${size == 5}">5</option>
+      <option value="10" th:selected="${size == 10}">10</option>
+      <option value="20" th:selected="${size == 20}">20</option>
+    </select>
+    <input type="hidden" name="page" th:value="${currentPage}" />
+  </form>
+
   <table>
     <thead>
     <tr>
@@ -28,7 +38,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="eloadas : ${eloadas}">
+    <tr th:each="eloadas : ${eloadasokPage.content}">
       <td th:text="${eloadas.filmId}"></td>
       <td th:text="${eloadas.moziId}"></td>
       <td th:text="${eloadas.datum}"></td>
@@ -37,6 +47,11 @@
     </tr>
     </tbody>
   </table>
+  <div>
+    <a th:href="@{/data(size=${size}, page=${eloadasokPage.number - 1})}" th:if="${eloadasokPage.hasPrevious()}">Előző</a>
+    <span>Oldal <span th:text="${eloadasokPage.number + 1}"></span> / <span th:text="${eloadasokPage.totalPages}"></span></span>
+    <a th:href="@{/data(size=${size}, page=${eloadasokPage.number + 1})}" th:if="${eloadasokPage.hasNext()}">Következő</a>
+  </div>
 
   <h2>Filmek</h2>
   <table>
@@ -49,7 +64,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="film : ${filmek}">
+    <tr th:each="film : ${filmPage.content}">
       <td th:text="${film.id}"></td>
       <td th:text="${film.cim}"></td>
       <td th:text="${film.ev}"></td>
@@ -57,6 +72,11 @@
     </tr>
     </tbody>
   </table>
+  <div>
+    <a th:href="@{/data(size=${size}, page=${filmPage.number - 1})}" th:if="${filmPage.hasPrevious()}">Előző</a>
+    <span>Oldal <span th:text="${filmPage.number + 1}"></span> / <span th:text="${filmPage.totalPages}"></span></span>
+    <a th:href="@{/data(size=${size}, page=${filmPage.number + 1})}" th:if="${filmPage.hasNext()}">Következő</a>
+  </div>
 
   <h2>Színházak</h2>
   <table>
@@ -69,7 +89,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="szinhaz : ${szinhazak}">
+    <tr th:each="szinhaz : ${szinhazPage.content}">
       <td th:text="${szinhaz.id}"></td>
       <td th:text="${szinhaz.nev}"></td>
       <td th:text="${szinhaz.varos}"></td>
@@ -77,6 +97,11 @@
     </tr>
     </tbody>
   </table>
+  <div>
+    <a th:href="@{/data(size=${size}, page=${szinhazPage.number - 1})}" th:if="${szinhazPage.hasPrevious()}">Előző</a>
+    <span>Oldal <span th:text="${szinhazPage.number + 1}"></span> / <span th:text="${szinhazPage.totalPages}"></span></span>
+    <a th:href="@{/data(size=${size}, page=${szinhazPage.number + 1})}" th:if="${szinhazPage.hasNext()}">Következő</a>
+  </div>
 </main>
 <footer>
   <p>&copy; 2024 MoziSpring</p>

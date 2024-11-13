@@ -3,6 +3,8 @@ package com.example.mozispring.Controller;
 import com.example.mozispring.Model.*;
 import com.example.mozispring.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,7 +43,7 @@ public class ContentController {
     @GetMapping("/index")
     public String index(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean loggedIn = auth != null && auth.isAuthenticated();
+        boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
         String username = loggedIn ? auth.getName() : null;
 
         model.addAttribute("loggedIn", loggedIn);
@@ -91,14 +93,18 @@ public class ContentController {
     }
 
     @GetMapping("/data")
-    public String showData(Model model) {
-        List<MyAppEloadas> eloadasok = eloadasService.getAllEloadasok();
-        List<MyAppFilm> filmek = filmService.getAllFilm();
-        List<MyAppSzinhaz> szinhazak = szinhazService.getAllSzinhaz();
+    public String showData(Model model,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "5") int size) {
 
-        model.addAttribute("eloadas", eloadasok);
-        model.addAttribute("filmek", filmek);
-        model.addAttribute("szinhazak", szinhazak);
+        Page<MyAppEloadas> eloadasokPage = eloadasService.getAllEloadasok(PageRequest.of(page, size));
+        Page<MyAppFilm>filmPage = filmService.getAllFilm(PageRequest.of(page, size));
+        Page<MyAppSzinhaz>szinhazPage=szinhazService.getAllSzinhaz(PageRequest.of(page, size));
+        model.addAttribute("eloadasokPage", eloadasokPage);
+        model.addAttribute("filmPage",filmPage);
+        model.addAttribute("szinhazPage",szinhazPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("size", size);
 
         return "data";
     }
@@ -107,7 +113,7 @@ public class ContentController {
     @GetMapping("/contact")
     public String showContactPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        boolean loggedIn = auth != null && auth.isAuthenticated();
+        boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
         model.addAttribute("loggedIn", loggedIn);
         return "contact";
     }
