@@ -21,15 +21,20 @@
             <input name="confirm_jelszo" type="password" id="confirm_jelszo" required>
             <label for="confirm_jelszo">Jelszó megerősítése</label>
         </div>
-        <div class="inputbox">
-            <label for="role">Szerepkör</label>
-            <br>
-            <br>
-            <select name="szerepkor" id="role" required>
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
-                <option value="visitor" selected>Visitor</option>
-            </select>
+        <div class="radio-group">
+            <label>Szerepkör</label>
+            <div class="radio">
+                <input type="radio" id="admin" name="szerepkor" value="admin">
+                <label for="admin">Admin</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="user" name="szerepkor" value="user">
+                <label for="user">User</label>
+            </div>
+            <div class="radio">
+                <input type="radio" id="visitor" name="szerepkor" value="visitor" checked>
+                <label for="visitor">Visitor</label>
+            </div>
         </div>
         <button type="submit">Regisztráció</button>
         <div class="register">

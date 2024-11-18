@@ -17,21 +17,27 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    backdrop-filter: blur(6px);
 }
 h2 {
     text-align: center;
 }
-
-p {
+p{
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    color: white;
+    backdrop-filter: blur(25px);
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 5px;
     margin: 20px auto;
     max-width: 800px;
     text-align: center;
 }
+section {
 
+}
 section {
     position: relative;
-    max-width: 500px; /* Adjust the max-width as needed */
-    background-color: transparent;
+    max-width: 500px;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     backdrop-filter: blur(55px);
@@ -40,6 +46,7 @@ section {
     align-items: center;
     padding: 2rem 3rem;
     transition: all 0.5s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 
@@ -50,8 +57,14 @@ h1 {
 }
 h3 {
     font-size: 1rem;
-    color: darkblue;
     text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    color: white;
+    backdrop-filter: blur(25px);
+    background-color: rgba(60, 58, 60, 0.8);
+    padding: 5px;
+    margin: 20px auto;
+    max-width: 800px;
 }
 .inputbox {
     position: relative;
@@ -101,7 +114,7 @@ input:valid ~ label {
 }
 
 h1 {
-    color: blue;
+    color: white;
     text-decoration: none;
 }
 
@@ -119,9 +132,8 @@ footer {
     display: flex;
     list-style-type: none;
     border-radius: 20px;
-
     border: 3px solid black;
-    background: white;
+    background: grey;
 }
 
 
