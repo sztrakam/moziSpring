@@ -14,8 +14,9 @@
     <ul class="menu">
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/logout">Kijelentkezés</a>&nbsp;&nbsp;|</li>
       <li th:if="${not loggedIn}"><a href="/login">Belépés</a></li>
-      <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/data">Adatbázis adatok lekérdezése</a>&nbsp;&nbsp;|</li>
+      <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/data">Adatok lekérdezése</a>&nbsp;&nbsp;|</li>
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/contact">Kapcsolat</a>&nbsp;&nbsp;|</li>
+      <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/messages">Üzenetek</a>&nbsp;&nbsp;|</li>
     </ul>
   </nav>
 </header>

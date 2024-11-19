@@ -9,9 +9,11 @@
 <section>
     <form action="/login" method="post">
         <h1>Bejelentkezés</h1>
-        <div th:if="${session['SPRING_SECURITY_LAST_EXCEPTION'] != null}">
-            <p th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></p>
+
+        <div th:if="${param.error != null}">
+            <p style="color: red;">Hibás felhasználónév vagy jelszó!</p>
         </div>
+
         <div class="inputbox">
             <input name="felhasznalonev" id="felhasznalonev" type="text" required>
             <label for="felhasznalonev">Felhasználónév</label>
@@ -26,7 +28,6 @@
         </div>
     </form>
 </section>
-
 <script type="application/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         const loginForm = document.querySelector('section');

@@ -6,10 +6,6 @@ import java.util.Objects;
 public class MyAppEloadas {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="ID")
-    private Long id;
-
     @Column(name = "filmid")
     private Long filmId;
 
@@ -25,9 +21,6 @@ public class MyAppEloadas {
     @Column(name = "bevetel")
     private double bevetel;
 
-    public Long getId() {
-        return id;
-    }
 
     public Long getFilmId() {
         return filmId;
@@ -47,10 +40,6 @@ public class MyAppEloadas {
 
     public double getBevetel() {
         return bevetel;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setFilmId(Long filmId) {

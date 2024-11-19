@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Elküldött üzenetek</title>
+  <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+<header>
+  <h1>Üzenetek megjelenítése</h1>
+  <nav>
+    <ul class="menu">
+      <li>&nbsp;&nbsp;<a href="/logout">Kijelentkezés</a>&nbsp;&nbsp;|</li>
+      <li>&nbsp;&nbsp;<a href="/index">Vissza a főoldalra</a>&nbsp;&nbsp;|</li>
+      <li>&nbsp;&nbsp;<a href="/contact">Kapcsolat</a>&nbsp;&nbsp;|</li>
+      <li>&nbsp;&nbsp;<a href="/data">Adatok lekérdezése</a>&nbsp;&nbsp;|</li>
+    </ul>
+  </nav>
+</header>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Név</th>
+    <th>Felhasználónév</th>
+    <th>Üzenet</th>
+    <th>Küldés ideje</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="contact : ${contacts}">
+    <td th:text="${contact.name}"></td>
+    <td th:text="${contact.username != null ? contact.username : 'Vendég'}"></td>
+    <td th:text="${contact.message}"></td>
+    <td th:text="${contact.timestamp}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

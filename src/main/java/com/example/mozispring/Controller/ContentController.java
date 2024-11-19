@@ -7,14 +7,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -25,6 +25,8 @@ public class ContentController {
     private final FilmService filmService;
     private final SzinhazService szinhazService;
     private final UserService userService;
+    @Autowired
+    private MyAppContactRepository myAppContactRepository;
 
     @Autowired
     public ContentController(MyAppUserService myAppUserService, EloadasService eloadasService, FilmService filmService, SzinhazService szinhazService, UserService userService) {
@@ -98,36 +100,61 @@ public class ContentController {
                            @RequestParam(defaultValue = "5") int size) {
 
         Page<MyAppEloadas> eloadasokPage = eloadasService.getAllEloadasok(PageRequest.of(page, size));
-        Page<MyAppFilm>filmPage = filmService.getAllFilm(PageRequest.of(page, size));
-        Page<MyAppSzinhaz>szinhazPage=szinhazService.getAllSzinhaz(PageRequest.of(page, size));
+        Page<MyAppFilm> filmPage = filmService.getAllFilm(PageRequest.of(page, size));
+        Page<MyAppSzinhaz> szinhazPage = szinhazService.getAllSzinhaz(PageRequest.of(page, size));
+
         model.addAttribute("eloadasokPage", eloadasokPage);
-        model.addAttribute("filmPage",filmPage);
-        model.addAttribute("szinhazPage",szinhazPage);
+        model.addAttribute("filmPage", filmPage);
+        model.addAttribute("szinhazPage", szinhazPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("size", size);
 
         return "data";
     }
+
     @Autowired
     private ContactService contactService;
+
     @GetMapping("/contact")
     public String showContactPage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
+
+        String username = loggedIn ? auth.getName() : "Vendég";
+
         model.addAttribute("loggedIn", loggedIn);
+        model.addAttribute("username", username);
         return "contact";
     }
+
     @PostMapping("/contact")
     public String sendMessage(@RequestParam String name,
                               @RequestParam String email,
-                              @RequestParam String message) {
+                              @RequestParam String message,
+                              Model model) {
         MyAppContact contact = new MyAppContact();
-        contact.setName(name);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal()))
+                ? auth.getName()
+                : "Vendég";
+
+        contact.setUsername(username);
         contact.setEmail(email);
         contact.setMessage(message);
-
+        contact.setName(name);
         contactService.createContact(contact);
 
+        model.addAttribute("loggedIn", auth != null && auth.isAuthenticated());
+        model.addAttribute("successMessage", "Üzenete sikeresen elküldve!");
+
         return "contact";
+    }
+
+    @GetMapping("/messages")
+    public String showMessages(Model model) {
+        List<MyAppContact> contacts = myAppContactRepository.findAllByOrderByTimestampDesc();
+        model.addAttribute("contacts", contacts);
+        return "messages";
     }
 }
