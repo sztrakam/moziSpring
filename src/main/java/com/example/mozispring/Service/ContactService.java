@@ -15,9 +15,6 @@ public class ContactService {
     @Autowired
     private MyAppContactRepository contactRepository;
 
-    public List<MyAppContact> getAllContacts() {
-        return contactRepository.findAll();
-    }
     private static final Logger logger = LoggerFactory.getLogger(ContentController.class);
 
     public MyAppContact createContact(MyAppContact contact) {
