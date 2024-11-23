@@ -32,7 +32,7 @@ public class SecurityConfig implements WebMvcConfigurer {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/contact","/login", "/h2-console/**", "/static/**", "/css/**", "/js/**", "/images/**", "/register").permitAll();
+                    registry.requestMatchers("/csrf","/api/**","/contact","/login", "/h2-console/**", "/static/**", "/css/**", "/js/**", "/images/**", "/register").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .headers(headers -> headers.frameOptions().sameOrigin())

@@ -100,7 +100,7 @@ public class ContentController {
                            @RequestParam(defaultValue = "5") int size) {
 
         Page<MyAppEloadas> eloadasokPage = eloadasService.getAllEloadasok(PageRequest.of(page, size));
-        Page<MyAppFilm> filmPage = filmService.getAllFilm(PageRequest.of(page, size));
+        Page<MyAppFilm> filmPage = filmService.getAllFilmek(PageRequest.of(page, size));
         Page<MyAppSzinhaz> szinhazPage = szinhazService.getAllSzinhaz(PageRequest.of(page, size));
 
         model.addAttribute("eloadasokPage", eloadasokPage);

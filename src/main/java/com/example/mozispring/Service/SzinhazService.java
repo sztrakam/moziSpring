@@ -16,9 +16,6 @@ public class SzinhazService {
         this.szinhazRepository = szinhazRepository;
     }
 
-    public List<MyAppSzinhaz> getAllSzinhaz() {
-        return szinhazRepository.findAll();
-    }
     public Page<MyAppSzinhaz> getAllSzinhaz(Pageable pageable) {
         return szinhazRepository.findAll(pageable);
     }
