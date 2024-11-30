@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kapcsolat - MoziSpring</title>
+    <link rel="stylesheet" href="/static/contact.css">
+</head>
+<body>
+<header>
+    <h1>Kapcsolat</h1>
+    <nav>
+        <ul class="menu">
+            <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/logout">Kijelentkezés</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/index">Vissza a főoldalra</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn == false}">&nbsp;&nbsp;<a href="/login">Bejelentkezés</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn == false}">&nbsp;&nbsp;<a href="/register">Nem rendelkezik még fiókkal?</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/data">Adatok lekérdezése</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/contact">Kapcsolat</a>&nbsp;&nbsp;|</li>
+            <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/messages">Üzenetek megjelenítése</a>&nbsp;&nbsp;|</li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <h3>Admin oldal</h3>
+
+    <p th:if="${loggedIn}" th:text="'Bejelentkezett: ' + ${username}"></p>
+    <p th:if="${loggedIn == false}" th:text="'Vendég'"></p>
+
+    <p>Ez az oldal csak akkor jelenik meg, ha a felhasználó szerepköre admin</p>
+
+</main>
+<footer>
+    <p>&copy; 2024 MoziSpring</p>
+</footer>
+</body>
+</html>

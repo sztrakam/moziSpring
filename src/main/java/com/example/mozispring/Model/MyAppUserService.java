@@ -1,5 +1,4 @@
 package com.example.mozispring.Model;
-
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,5 +25,9 @@ public class MyAppUserService implements UserDetailsService {
         } else {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+    }
+    public String getUserRole(String username) {
+        Optional<MyAppUser> user = repository.findByUsername(username);
+        return user.isPresent() ? user.get().getRole() : null;
     }
 }

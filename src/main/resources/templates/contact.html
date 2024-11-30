@@ -15,6 +15,7 @@
       <li th:if="${loggedIn == false}">&nbsp;&nbsp;<a href="/register">Nem rendelkezik még fiókkal?</a>&nbsp;&nbsp;|</li>
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/data">Adatok lekérdezése</a>&nbsp;&nbsp;|</li>
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/messages">Üzenetek megjelenítése</a>&nbsp;&nbsp;|</li>
+      <li th:if="${loggedIn and role == 'admin'}">&nbsp;&nbsp;<a href="/admin">Admin oldal</a>&nbsp;&nbsp;|</li>
     </ul>
   </nav>
 </header>

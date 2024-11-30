@@ -47,7 +47,8 @@ public class ContentController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
         String username = loggedIn ? auth.getName() : null;
-
+        String role = myAppUserService.getUserRole(username);
+        model.addAttribute("role",role);
         model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("username", username);
 
@@ -101,8 +102,14 @@ public class ContentController {
 
         Page<MyAppEloadas> eloadasokPage = eloadasService.getAllEloadasok(PageRequest.of(page, size));
         Page<MyAppFilm> filmPage = filmService.getAllFilmek(PageRequest.of(page, size));
+
         Page<MyAppSzinhaz> szinhazPage = szinhazService.getAllSzinhaz(PageRequest.of(page, size));
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
+        String username = loggedIn ? auth.getName() : null;
+        String role = myAppUserService.getUserRole(username);
+        model.addAttribute("role",role);
         model.addAttribute("eloadasokPage", eloadasokPage);
         model.addAttribute("filmPage", filmPage);
         model.addAttribute("szinhazPage", szinhazPage);
@@ -117,11 +124,12 @@ public class ContentController {
 
     @GetMapping("/contact")
     public String showContactPage(Model model) {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
-
         String username = loggedIn ? auth.getName() : "Vendég";
-
+        String role = myAppUserService.getUserRole(username);
+        model.addAttribute("role",role);
         model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("username", username);
         return "contact";
@@ -154,7 +162,25 @@ public class ContentController {
     @GetMapping("/messages")
     public String showMessages(Model model) {
         List<MyAppContact> contacts = myAppContactRepository.findAllByOrderByTimestampDesc();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean loggedIn = auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal());
+        String username = loggedIn ? auth.getName() : "Vendég";
+        String role = myAppUserService.getUserRole(username);
+        model.addAttribute("role",role);
         model.addAttribute("contacts", contacts);
         return "messages";
+    }
+    @GetMapping("/admin")
+    public String adminPage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        String role = myAppUserService.getUserRole(username);
+        model.addAttribute("loggedIn", auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal()));
+        if ("admin".equals(role)) {
+            model.addAttribute("username", username);
+            return "admin";
+        } else {
+            return "redirect:/index";
+        }
     }
 }
