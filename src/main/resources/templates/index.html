@@ -17,6 +17,7 @@
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/data">Adatok lekérdezése</a>&nbsp;&nbsp;|</li>
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/contact">Kapcsolat</a>&nbsp;&nbsp;|</li>
       <li th:if="${loggedIn}">&nbsp;&nbsp;<a href="/messages">Üzenetek</a>&nbsp;&nbsp;|</li>
+      <li th:if="${loggedIn and role == 'admin'}">&nbsp;&nbsp;<a href="/admin">Admin oldal</a>&nbsp;&nbsp;|</li>
     </ul>
   </nav>
 </header>

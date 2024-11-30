@@ -1,0 +1,5 @@
+Create table felhasznalok(
+id int primary key,
+felhasznalonev varchar(255),
+jelszo varchar(255),
+szerepkor varchar(255));
